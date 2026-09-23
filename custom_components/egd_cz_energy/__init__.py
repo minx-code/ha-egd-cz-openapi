@@ -84,7 +84,6 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     coordinator = EgdDataUpdateCoordinator(
         hass, api, entry.data[CONF_EAN], profiles, store, stored_data, history_start, entry.entry_id
     )
-    coordinator.typ_mereni = typ_mereni
 
     hass.data.setdefault(DOMAIN, {})
     hass.data[DOMAIN][entry.entry_id] = {

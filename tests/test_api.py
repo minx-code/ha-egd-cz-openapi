@@ -137,7 +137,7 @@ async def test_check_day_access():
     api = EgdApi("client_id", "client_secret", session)
 
     date_check = datetime(2026, 9, 10, 0, 0, tzinfo=UTC)
-    headers = {}
+    headers: dict[str, str] = {}
 
     from unittest.mock import patch
 

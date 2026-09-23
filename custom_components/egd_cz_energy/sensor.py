@@ -19,6 +19,7 @@ from homeassistant.helpers.entity_platform import AddEntitiesCallback
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
 from .const import DOMAIN
+from .coordinator import EgdDataUpdateCoordinator
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -52,8 +53,11 @@ class EgdEnergySensor(CoordinatorEntity, SensorEntity):
     _attr_icon = "mdi:flash"
     _attr_has_entity_name = True
 
-    def __init__(self, coordinator, ean: str, profile: str, translation_key: str):
+    def __init__(
+        self, coordinator: EgdDataUpdateCoordinator, ean: str, profile: str, translation_key: str
+    ):
         super().__init__(coordinator)
+        self.coordinator: EgdDataUpdateCoordinator = coordinator
         self._ean = ean
         self._profile = profile
         self._attr_translation_key = translation_key
@@ -91,7 +95,7 @@ class EgdEnergySensor(CoordinatorEntity, SensorEntity):
         if profile_data and profile_data.get("parsed_data"):
             parsed_data = profile_data["parsed_data"]
 
-            hourly_data = {}
+            hourly_data: dict[datetime, float] = {}
             for bucket in sorted(parsed_data.keys()):
                 val = parsed_data[bucket]
                 if self._profile in ["ICC1", "ISC1"]:
@@ -156,9 +160,10 @@ class EgdSyncStatusSensor(CoordinatorEntity, SensorEntity):
     _attr_translation_key = "sync_status"
     _attr_icon = "mdi:sync"
 
-    def __init__(self, coordinator, ean: str):
+    def __init__(self, coordinator: EgdDataUpdateCoordinator, ean: str):
         """Initialize."""
         super().__init__(coordinator)
+        self.coordinator: EgdDataUpdateCoordinator = coordinator
         self._ean = ean
         self._attr_unique_id = f"egd_{ean}_sync_status"
         self._storage_key = f"{self._ean}_sync_status"

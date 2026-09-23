@@ -1,4 +1,5 @@
 from datetime import UTC, datetime, timedelta
+from typing import Any
 from unittest.mock import AsyncMock, MagicMock
 
 import pytest
@@ -24,7 +25,7 @@ async def test_coordinator_update_data(hass: HomeAssistant):
     store_mock.async_save = AsyncMock()
 
     history_start = now - timedelta(days=5)
-    stored_data = {}
+    stored_data: dict[str, dict[str, Any]] = {}
 
     coordinator = EgdDataUpdateCoordinator(
         hass, api_mock, "123456", ["ICQ2"], store_mock, stored_data, history_start, "fake_entry_id"
