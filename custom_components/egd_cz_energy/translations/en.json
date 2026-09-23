@@ -1,0 +1,113 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "EG.D OpenAPI Setup",
+        "description": "Enter your Distribuce24 portal credentials and EAN of your supply point.",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret",
+          "ean": "EAN (18 digits)",
+          "unlimited_history": "Unlimited history (download all)"
+        }
+      },
+      "history": {
+        "title": "History Start Date",
+        "description": "Select the date from which you want to download historical consumption data.",
+        "data": {
+          "history_start_date": "History Start Date"
+        }
+      },
+      "reconfigure": {
+        "title": "Update Credentials",
+        "description": "Enter your new EG.D OpenAPI credentials.",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Invalid authentication credentials.",
+      "cannot_connect": "Failed to connect to EG.D API.",
+      "unknown": "Unexpected error.",
+      "invalid_ean": "Invalid EAN. Must be exactly 18 digits."
+    },
+    "abort": {
+      "already_configured": "This supply point is already configured.",
+      "reconfigure_successful": "Credentials updated successfully."
+    }
+  },
+  "issues": {
+    "auth_failed": {
+      "title": "EG.D API Authentication Failed",
+      "description": "Failed to download data due to invalid credentials. Your Client Secret has likely expired. Please go to the integration settings and click Reconfigure."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "consumption": {
+        "name": "Consumption"
+      },
+      "production": {
+        "name": "Production"
+      },
+      "shared": {
+        "name": "Shared Consumption"
+      },
+      "sync_status": {
+        "name": "Sync Status",
+        "state": {
+          "ok": "OK",
+          "waiting_for_data": "Waiting for data",
+          "error": "Error"
+        }
+      }
+    },
+    "binary_sensor": {
+      "connection": {
+        "name": "Connection Status"
+      }
+    }
+  },
+  "services": {
+    "fetch_history": {
+      "name": "Fetch history from EG.D",
+      "description": "Immediately forces downloading historical data from Distribuce24 servers. Can be limited to a specific supply point and a start date.",
+      "fields": {
+        "start_date": {
+          "name": "Start date (optional)",
+          "description": "Date from which to download data in YYYY-MM-DD format. If omitted, the last saved date is used."
+        }
+      }
+    },
+    "remove_statistics": {
+      "name": "Remove statistics",
+      "description": "Completely wipe all downloaded EG.D statistics from the database and reset the checkpoint.",
+      "fields": {
+        "entry_id": {
+          "name": "Entry ID (optional)",
+          "description": "ID of the configuration entry to clear."
+        },
+        "ean": {
+          "name": "EAN (optional)",
+          "description": "EAN of the supply point to clear."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Download Options",
+        "description": "Set the time when the daily data download should occur and select data profiles.",
+        "data": {
+          "profile_consumption": "Consumption Profile",
+          "profile_production": "Production Profile",
+          "update_hour": "Hour (0-23)",
+          "update_minute": "Minute (0-59)"
+        }
+      }
+    }
+  }
+}

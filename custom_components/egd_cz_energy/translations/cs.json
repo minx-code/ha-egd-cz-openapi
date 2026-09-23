@@ -1,0 +1,113 @@
+{
+  "config": {
+    "step": {
+      "user": {
+        "title": "Nastavení EG.D OpenAPI",
+        "description": "Zadejte své přístupové údaje z portálu Distribuce24 a EAN odběrného místa.",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret",
+          "ean": "EAN (18 číslic)",
+          "unlimited_history": "Neomezená historie (stáhnout vše)"
+        }
+      },
+      "history": {
+        "title": "Počátek historie",
+        "description": "Zvolte si datum, od kterého si přejete stáhnout historická data spotřeby.",
+        "data": {
+          "history_start_date": "Datum počátku historie"
+        }
+      },
+      "reconfigure": {
+        "title": "Aktualizace přístupových údajů",
+        "description": "Zadejte nové přístupové údaje pro EG.D OpenAPI.",
+        "data": {
+          "client_id": "Client ID",
+          "client_secret": "Client Secret"
+        }
+      }
+    },
+    "error": {
+      "invalid_auth": "Neplatné přihlašovací údaje (Client ID nebo Secret).",
+      "cannot_connect": "Nepodařilo se připojit k EG.D API.",
+      "unknown": "Neočekávaná chyba.",
+      "invalid_ean": "Neplatný EAN. Musí mít přesně 18 číslic."
+    },
+    "abort": {
+      "already_configured": "Toto odběrné místo je již nastaveno.",
+      "reconfigure_successful": "Aktualizace přístupových údajů proběhla úspěšně."
+    }
+  },
+  "issues": {
+    "auth_failed": {
+      "title": "Chyba přihlášení k EG.D API",
+      "description": "Nepodařilo se stáhnout data kvůli neplatným přístupovým údajům. Pravděpodobně vypršela platnost Client Secret hesla. Přejděte do nastavení integrace a proveďte Rekonfiguraci."
+    }
+  },
+  "entity": {
+    "sensor": {
+      "consumption": {
+        "name": "Spotřeba"
+      },
+      "production": {
+        "name": "Přetok"
+      },
+      "shared": {
+        "name": "Sdílená spotřeba"
+      },
+      "sync_status": {
+        "name": "Stav synchronizace",
+        "state": {
+          "ok": "V pořádku",
+          "waiting_for_data": "Čeká na nová data",
+          "error": "Chyba"
+        }
+      }
+    },
+    "binary_sensor": {
+      "connection": {
+        "name": "Stav připojení"
+      }
+    }
+  },
+  "services": {
+    "fetch_history": {
+      "name": "Stáhnout historii z EG.D",
+      "description": "Okamžitě vynutí stažení historie ze serverů Distribuce24. Lze omezit na konkrétní odběrné místo a specifikovat počáteční datum.",
+      "fields": {
+        "start_date": {
+          "name": "Počáteční datum (volitelné)",
+          "description": "Datum od kterého stahovat data ve formátu YYYY-MM-DD. Pokud nezadáte, použije se poslední uložený datum."
+        }
+      }
+    },
+    "remove_statistics": {
+      "name": "Odstranit statistiky (smazat historii)",
+      "description": "Kompletně smaže všechna stažená data z databáze a resetuje kontrolní bod integrace.",
+      "fields": {
+        "entry_id": {
+          "name": "ID integrace (volitelné)",
+          "description": "ID integrace, kterou chcete vymazat."
+        },
+        "ean": {
+          "name": "EAN (volitelné)",
+          "description": "EAN odběrného místa k vymazání."
+        }
+      }
+    }
+  },
+  "options": {
+    "step": {
+      "init": {
+        "title": "Možnosti stahování",
+        "description": "Nastavte si čas denního stahování dat a vyberte měřící profily.",
+        "data": {
+          "profile_consumption": "Profil spotřeby",
+          "profile_production": "Profil výroby (přetoků)",
+          "update_hour": "Hodina (0-23)",
+          "update_minute": "Minuta (0-59)"
+        }
+      }
+    }
+  }
+}

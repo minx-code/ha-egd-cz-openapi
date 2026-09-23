@@ -1,0 +1,33 @@
+fetch_history:
+  name: Fetch history from EG.D
+  description: Immediately forces downloading historical data from Distribuce24 servers. Can be limited to a specific supply point and a start date.
+  target:
+    device:
+      integration: egd_cz_energy
+  fields:
+    start_date:
+      name: Start date (optional)
+      description: Date from which to download data in YYYY-MM-DD format. If omitted, the last saved date is used.
+      example: "2023-01-01"
+      selector:
+        date:
+
+remove_statistics:
+  name: Remove statistics
+  description: Completely wipe all downloaded EG.D statistics from the database and reset the checkpoint.
+  target:
+    device:
+      integration: egd_cz_energy
+  fields:
+    entry_id:
+      name: Entry ID (optional)
+      description: ID of the configuration entry to clear.
+      example: "abc123def"
+      selector:
+        text:
+    ean:
+      name: EAN (optional)
+      description: EAN of the supply point to clear.
+      example: "859182400212047065"
+      selector:
+        text:
